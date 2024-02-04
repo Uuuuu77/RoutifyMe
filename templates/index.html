@@ -1,0 +1,33 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Optimization App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Route Optimization App</h1>
+
+        <!-- Map container -->
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+
+        <!-- Optimize button -->
+        <button id="optimizeButton" class="button">Optimize Route</button>
+    </div>
+
+    <!-- Include Google Maps API script -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap" async defer></script>
+
+    <!-- Include main.js script -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
