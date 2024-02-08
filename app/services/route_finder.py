@@ -1,9 +1,7 @@
-# app/routes.py
 #!/usr/bin/python3
 
 import requests
-import json
-from flask import Blueprint, render_template,
+from flask import Blueprint, render_template, request, jsonify
 
 # Create a Blueprint for routes
 routes_bp = Blueprint('routes', __name__)
@@ -21,29 +19,10 @@ def index():
 
 @routes_bp.route('/optimize', methods=['POST'])
 def optimize_route():
-    # Google Maps Directions API endpoint
-    endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
+    data = request.get_json()
+    optimized_route = optimize_with_google_maps(data)
+    return jsonify(optimized_route)
 
-    # parameters
-    api_key = 'YOUR_API_KEY'  # replace with your own API key
-    origin = start
-    destination = end
-    waypoints = '|'.join(waypoints)
-    optimize = 'true'  # to optimize waypoints
-
-    # define the request url
-    nav_request = f'origin={origin}&destination={destination}&waypoints=optimize:{optimize}:{waypoints}&key={api_key}'
-
-    # send the request to the Google Maps Directions API
-    request = endpoint + nav_request
-    response = requests.get(request)
-
-    # convert the response to json
-    directions = json.loads(response.content)
-
-    return directions
-
-# Function to simulate Google Maps API call for optimization
 def optimize_with_google_maps(data):
     # Google Maps Directions API endpoint
     endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
@@ -59,11 +38,11 @@ def optimize_with_google_maps(data):
     nav_request = f'origin={origin}&destination={destination}&waypoints=optimize:{optimize}:{waypoints}&key={api_key}'
 
     # send the request to the Google Maps Directions API
-    request = endpoint + nav_request
-    response = requests.get(request)
+    request_url = endpoint + nav_request
+    response = requests.get(request_url)
 
     # convert the response to json
-    directions = json.loads(response.content)
+    directions = response.json()
 
     # extract the optimized route from the response
     optimized_route = [leg['end_address'] for leg in directions['routes'][0]['legs']]
