@@ -1,5 +1,9 @@
 # app/routes.py
-from flask import Blueprint, render_template, jsonify
+#!/usr/bin/python3
+
+import requests
+import json
+from flask import Blueprint, render_template,
 
 # Create a Blueprint for routes
 routes_bp = Blueprint('routes', __name__)
@@ -17,19 +21,51 @@ def index():
 
 @routes_bp.route('/optimize', methods=['POST'])
 def optimize_route():
-    # Extract data from the frontend (e.g., selected locations)
-    data = request.get_json()
+    # Google Maps Directions API endpoint
+    endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
 
-    # Implement logic to optimize the route using Google Maps API
-    # Replace the following with actual Google Maps API calls
-    optimized_route = optimize_with_google_maps(data)
+    # parameters
+    api_key = 'YOUR_API_KEY'  # replace with your own API key
+    origin = start
+    destination = end
+    waypoints = '|'.join(waypoints)
+    optimize = 'true'  # to optimize waypoints
 
-    return jsonify({"optimized_route": optimized_route})
+    # define the request url
+    nav_request = f'origin={origin}&destination={destination}&waypoints=optimize:{optimize}:{waypoints}&key={api_key}'
+
+    # send the request to the Google Maps Directions API
+    request = endpoint + nav_request
+    response = requests.get(request)
+
+    # convert the response to json
+    directions = json.loads(response.content)
+
+    return directions
 
 # Function to simulate Google Maps API call for optimization
 def optimize_with_google_maps(data):
-    # Your implementation here
-    # This could involve making requests to Google Maps Directions API
-    # and processing the response to get the optimized route.
-    # For simplicity, we are just returning a reversed list of locations.
-    return list(reversed(data['locations']))
+    # Google Maps Directions API endpoint
+    endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
+
+    # parameters
+    api_key = 'YOUR_API_KEY'  # replace with your own API key
+    origin = data['locations'][0]
+    destination = data['locations'][-1]
+    waypoints = '|'.join(data['locations'][1:-1])
+    optimize = 'true'  # to optimize waypoints
+
+    # define the request url
+    nav_request = f'origin={origin}&destination={destination}&waypoints=optimize:{optimize}:{waypoints}&key={api_key}'
+
+    # send the request to the Google Maps Directions API
+    request = endpoint + nav_request
+    response = requests.get(request)
+
+    # convert the response to json
+    directions = json.loads(response.content)
+
+    # extract the optimized route from the response
+    optimized_route = [leg['end_address'] for leg in directions['routes'][0]['legs']]
+
+    return optimized_route
