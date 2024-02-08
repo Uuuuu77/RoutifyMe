@@ -2,7 +2,7 @@
 from flask import Flask, render_template
 
 # Create a Flask application instance
-app = Flask(__name__)
+app = Flask(__name__):
 
 # Configuration (add your configuration variables here)
 
