@@ -1,18 +1,25 @@
-# app/app.py
-from flask import Flask, render_template
+#!/usr/bin/python3
 
+<<<<<<< HEAD
 # Create a Flask application instance
 app = Flask("__name__"):
+=======
+from flask import Flask
+from app.views.my_location_view import my_location_view
+from app.views.nearby_places_view import nearby_places_view
+from app.views.route_finder_view import route_finder_view
+>>>>>>> 7e3380c6109ab3390bc6bef16cd429e6bc92cf03
 
-# Configuration (add your configuration variables here)
+def create_app():
+    app = Flask(__name__)
 
-# Sample route to render the index page
-@app.route('/')
-def index():
-    return render_template('index.html')
+    # Register blueprints
+    app.register_blueprint(my_location_view, url_prefix='/api')
+    app.register_blueprint(nearby_places_view, url_prefix='/api')
+    app.register_blueprint(route_finder_view, url_prefix='/api')
 
-# Add more routes and logic as needed
+    return app
 
 if __name__ == '__main__':
-    # Run the app in debug mode for development
+    app = create_app()
     app.run(debug=True)
