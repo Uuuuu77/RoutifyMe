@@ -2,6 +2,7 @@
 
 from flask import Flask, jsonify
 
+
 def create_app():
     # Create a Flask application instance
     app = Flask(__name__)
@@ -22,11 +23,8 @@ def create_app():
 
     return app
 
-app = create_app()
 
-@app.errorHandler(500)
-def handle_500_error(e):
-    return jsonify(error=str(e)), 500
+app = create_app()
 
 # You can include additional initialization code here if needed
 # For example, connecting to a database, setting configurations, etc.
