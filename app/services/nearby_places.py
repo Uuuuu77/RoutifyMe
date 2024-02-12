@@ -3,6 +3,7 @@
 import requests
 from requests.exceptions import RequestException
 
+
 def get_nearby_places(location):
     # Input validation: check that location is a non-empty string
     if not isinstance(location, str) or not location:

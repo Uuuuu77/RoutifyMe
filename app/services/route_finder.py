@@ -14,9 +14,11 @@ locations = [
     {"id": 3, "name": "Location C", "lat": 37.7849, "lng": -122.4194},
 ]
 
+
 @routes_bp.route('/')
 def index():
     return render_template('index.html', locations=locations)
+
 
 @routes_bp.route('/optimize', methods=['POST'])
 def optimize_route():
@@ -25,6 +27,7 @@ def optimize_route():
         return jsonify({"error": "At least two locations are required"}), 400
     optimized_route = optimize_with_google_maps(data)
     return jsonify(optimized_route)
+
 
 def optimize_with_google_maps(data):
     # Google Maps Directions API endpoint
