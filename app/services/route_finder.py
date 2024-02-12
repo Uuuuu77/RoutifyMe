@@ -2,6 +2,7 @@
 
 import requests
 from flask import Blueprint, render_template, request, jsonify
+from requests.exceptions import RequestException
 
 # Create a Blueprint for routes
 routes_bp = Blueprint('routes', __name__)
@@ -20,6 +21,8 @@ def index():
 @routes_bp.route('/optimize', methods=['POST'])
 def optimize_route():
     data = request.get_json()
+    if 'locations' not in data or len(data['locations']) < 2:
+        return jsonify({"error": "At least two locations are required"}), 400
     optimized_route = optimize_with_google_maps(data)
     return jsonify(optimized_route)
 
@@ -39,12 +42,7 @@ def optimize_with_google_maps(data):
 
     # send the request to the Google Maps Directions API
     request_url = endpoint + nav_request
-    response = requests.get(request_url)
-
-    # convert the response to json
-    directions = response.json()
-
-    # extract the optimized route from the response
-    optimized_route = [leg['end_address'] for leg in directions['routes'][0]['legs']]
-
-    return optimized_route
+    try:
+        response = requests.get(request_url)
+        response.raise_for_status()
+    except RequestException as e:
