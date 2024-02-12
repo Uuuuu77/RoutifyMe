@@ -1,18 +1,25 @@
 #!/usr/bin/python3
 
 import requests
+from requests.exceptions import RequestException
 
 def get_nearby_places(location):
-    # This is a placeholder URL - replace with the URL of the actual API you're using
+    # Input validation: check that location is a non-empty string
+    if not isinstance(location, str) or not location:
+        raise ValueError("location must be a non-empty string")
+
     api_url = "https://api.example.com/nearby-places"
 
-    # Send a GET request to the API with the location as a parameter
-    response = requests.get(api_url, params={'location': location})
+    try:
+        # Send a GET request to the API with the location as a parameter
+        response = requests.get(api_url, params={'location': location})
 
-    # Check that the request was successful
-    if response.status_code == 200:
+        # Check that the request was successful
+        response.raise_for_status()
+
         # If successful, return the data from the response
         return response.json()
-    else:
+
+    except RequestException as e:
         # If not successful, raise an exception
-        raise Exception(f"Request to {api_url} failed with status code {response.status_code}.")
+        raise Exception(f"Request to {api_url} failed: {str(e)}")
