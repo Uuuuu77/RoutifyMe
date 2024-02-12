@@ -3,8 +3,8 @@
 import requests
 from requests.exceptions import RequestException
 
+
 def get_my_location():
-    # This is a placeholder URL - replace with the URL of the actual API you're using
     api_url = "https://api.example.com/my-location"
 
     try:
