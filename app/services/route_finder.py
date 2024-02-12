@@ -49,3 +49,10 @@ def optimize_with_google_maps(data):
         response = requests.get(request_url)
         response.raise_for_status()
     except RequestException as e:
+        raise Exception(f"Request to Google maps API failed: {str(e)}")
+
+    directions = response.json()
+
+    optimized_route = [leg['end_address'] for leg in directions['routes'][0]['legs']]
+
+    return optimized_route
