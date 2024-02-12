@@ -2,6 +2,7 @@
 
 from flask import Flask, jsonify
 
+
 def create_app():
     # Create a Flask application instance
     app = Flask(__name__)
@@ -21,6 +22,7 @@ def create_app():
     # For example, connecting to a database, setting configurations, etc.
 
     return app
+
 
 app = create_app()
 
