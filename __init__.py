@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask
+from flask import Flask, jsonify
 
 
 def create_app():
@@ -8,7 +8,10 @@ def create_app():
     app = Flask(__name__)
 
     # Import routes inside the function to avoid circular imports
-    from views import route_finder_view, my_location_view, nearby_places_view
+    from views.route_finder_view import route_finder_view 
+    from views.my_location_view import my_location_view
+    from views.nearby_places_view import nearby_places_view
+
 
     # Register the Blueprint with the app
     app.register_blueprint(route_finder_view)
@@ -16,7 +19,7 @@ def create_app():
     app.register_blueprint(nearby_places_view)
 
     # Global error handler
-    @app.errorHandler(500)
+    @app.errorhandler(500)
     def handle_500_error(e):
         return jsonify(error=str(e)), 500
 

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from flask import Blueprint, jsonify, request
-from services.route_finder import index
+from services.route_finder import find_route
 
 route_finder_view = Blueprint('route_finder_view', __name__)
 
