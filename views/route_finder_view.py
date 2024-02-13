@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from flask import Blueprint, jsonify, request
-from services.route_finder import find_route
+from services.route_finder import optimize_route
 
 route_finder_view = Blueprint('route_finder_view', __name__)
 
@@ -16,7 +16,7 @@ def route_finder():
         return jsonify({"error": "Missing start or end location parameter"}), 400
 
     try:
-        route = find_route(start_location, end_location)
+        route = optimize_route(start_location, end_location)
         return jsonify(route)
     except Exception as e:
         return jsonify({"error": "Failed to find route"}), 500
