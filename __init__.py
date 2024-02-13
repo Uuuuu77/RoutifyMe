@@ -8,10 +8,9 @@ def create_app():
     app = Flask(__name__)
 
     # Import routes inside the function to avoid circular imports
-    from views.route_finder_view import route_finder_view 
+    from views.route_finder_view import route_finder_view
     from views.my_location_view import my_location_view
     from views.nearby_places_view import nearby_places_view
-
 
     # Register the Blueprint with the app
     app.register_blueprint(route_finder_view)

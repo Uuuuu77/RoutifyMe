@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, jsonify
 from requests.exceptions import RequestException
 
 # Create a Blueprint for routes
-route_finder= Blueprint('route_finder', __name__)
+route_finder = Blueprint('route_finder', __name__)
 
 # Sample data (replace with actual data or database interactions)
 locations = [
