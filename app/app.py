@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from app import app
 from flask import Flask, jsonify, request, abort
 from services import nearby_places, route_finder, my_location
 
