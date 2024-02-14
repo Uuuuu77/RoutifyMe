@@ -34,7 +34,7 @@ def optimize_with_google_maps(data):
     endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
 
     # parameters
-    api_key = 'YOUR_API_KEY'  # replace with your own API key
+    api_key = 'AoNYwLi2V9fAwYCqcH5rKYEaVGshJTCrSjwKfC1IOeinogUA2AEhBeUKLhPbdWPf'  # replace with your own API key
     origin = data['locations'][0]
     destination = data['locations'][-1]
     waypoints = '|'.join(data['locations'][1:-1])
