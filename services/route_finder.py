@@ -1,8 +1,12 @@
 #!/usr/bin/python3
 
+import os
 import requests
 from flask import Blueprint, render_template, request, jsonify
 from requests.exceptions import RequestException
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Create a Blueprint for routes
 route_finder = Blueprint('route_finder', __name__)
@@ -34,7 +38,7 @@ def optimize_with_bing_maps(data):
     endpoint = 'http://dev.virtualearth.net/REST/V1/Routes/Driving?'
 
     # parameters
-    api_key = 'AoNYwLi2V9fAwYCqcH5rKYEaVGshJTCrSjwKfC1IOeinogUA2AEhBeUKLhPbdWPf'  # replace with your own API key
+    api_key = os.getenv('Bing_Maps_Key')
     origin = data['locations'][0]
     destination = data['locations'][-1]
     waypoints = ';'.join(data['locations'][1:-1])

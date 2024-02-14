@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 
+import os
 import requests
 from requests.exceptions import RequestException
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_nearby_places(location, queries):
     if not isinstance(location, str) or not location:
@@ -16,7 +20,7 @@ def get_nearby_places(location, queries):
         params = {
             'query': query,
             'userLocation': location,
-            'key': api_key,
+            'key': os.getenv('Bing_Maps_Key'),
         }
 
         try:

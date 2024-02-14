@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 
+import os
 import requests
 from requests.exceptions import RequestException
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_location(address):
@@ -12,8 +16,8 @@ def get_location(address):
     api_url = "http://dev.virtualearth.net/REST/v1/Locations"
 
     params = {
-        'query': address,  # The address you want to geocode
-        'key': api_key,
+        'query': address,
+        'key': os.getenv('Bing_Maps_Key'),
     }
 
     try:
