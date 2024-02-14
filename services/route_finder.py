@@ -25,34 +25,34 @@ def optimize_route():
     data = request.get_json()
     if 'locations' not in data or len(data['locations']) < 2:
         return jsonify({"error": "At least two locations are required"}), 400
-    optimized_route = optimize_with_google_maps(data)
+    optimized_route = optimize_with_bing_maps(data)
     return jsonify(optimized_route)
 
 
-def optimize_with_google_maps(data):
-    # Google Maps Directions API endpoint
-    endpoint = 'https://maps.googleapis.com/maps/api/directions/json?'
+def optimize_with_bing_maps(data):
+    # Bing Maps API endpoint
+    endpoint = 'http://dev.virtualearth.net/REST/V1/Routes/Driving?'
 
     # parameters
     api_key = 'AoNYwLi2V9fAwYCqcH5rKYEaVGshJTCrSjwKfC1IOeinogUA2AEhBeUKLhPbdWPf'  # replace with your own API key
     origin = data['locations'][0]
     destination = data['locations'][-1]
-    waypoints = '|'.join(data['locations'][1:-1])
-    optimize = 'true'  # to optimize waypoints
+    waypoints = ';'.join(data['locations'][1:-1])
+    optimize = 'time'  # to optimize waypoints
 
     # define the request url
-    nav_request = f'origin={origin}&destination={destination}&waypoints=optimize:{optimize}:{waypoints}&key={api_key}'
+    nav_request = f'wp.0={origin}&wp.1={waypoints}&wp.2={destination}&optimize={optimize}&key={api_key}'
 
-    # send the request to the Google Maps Directions API
+    # send the request to the Bing Maps API
     request_url = endpoint + nav_request
     try:
         response = requests.get(request_url)
         response.raise_for_status()
     except RequestException as e:
-        raise Exception(f"Request to Google maps API failed: {str(e)}")
+        raise Exception(f"Request to Bing maps API failed: {str(e)}")
 
     directions = response.json()
 
-    optimized_route = [leg['end_address'] for leg in directions['routes'][0]['legs']]
+    optimized_route = [route['routeLegs'][0]['endLocation'] for route in directions['resourceSets'][0]['resources']]
 
     return optimized_route

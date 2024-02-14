@@ -4,12 +4,21 @@ import requests
 from requests.exceptions import RequestException
 
 
-def get_my_location():
-    api_url = "https://api.example.com/my-location"
+def get_location(address):
+    # Check that address is a non-empty string
+    if not isinstance(address, str) or not address:
+        raise ValueError("address must be a non-empty string")
+
+    api_url = "http://dev.virtualearth.net/REST/v1/Locations"
+
+    params = {
+        'query': address,  # The address you want to geocode
+        'key': api_key,
+    }
 
     try:
-        # Send a GET request to the API
-        response = requests.get(api_url)
+        # Send a GET request to the API with the address as a parameter
+        response = requests.get(api_url, params=params)
 
         # Check that the request was successful
         response.raise_for_status()

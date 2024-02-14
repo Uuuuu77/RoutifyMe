@@ -3,24 +3,28 @@
 import requests
 from requests.exceptions import RequestException
 
-
-def get_nearby_places(location):
-    # Check that location is a non-empty string
+def get_nearby_places(location, queries):
     if not isinstance(location, str) or not location:
         raise ValueError("location must be a non-empty string")
+    if not isinstance(queries, list) or not all(isinstance(query, str) for query in queries):
+        raise ValueError("queries must be a list of non-empty strings")
 
-    api_url = "https://api.example.com/nearby-places"
+    api_url = "http://dev.virtualearth.net/REST/v1/LocalSearch"
+    results = {}
 
-    try:
-        # Send a GET request to the API with the location as a parameter
-        response = requests.get(api_url, params={'location': location})
+    for query in queries:
+        params = {
+            'query': query,
+            'userLocation': location,
+            'key': api_key,
+        }
 
-        # Check that the request was successful
-        response.raise_for_status()
+        try:
+            response = requests.get(api_url, params=params)
+            response.raise_for_status()
+            results[query] = response.json()
+        except RequestException as e:
+            raise Exception(f"Request to {api_url} failed: {str(e)}")
 
-        # If successful, return the data from the response
-        return response.json()
-
-    except RequestException as e:
-        # If not successful, raise an exception
-        raise Exception(f"Request to {api_url} failed: {str(e)}")
+    return results
+     
