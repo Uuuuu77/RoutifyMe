@@ -2,7 +2,7 @@
 
 import unittest
 from unittest.mock import patch, Mock
-from services import my_location
+from RoutifyMe.services import my_location
 
 class TestMyLocation(unittest.TestCase):
     @patch('services.my_location.requests.get')
@@ -34,6 +34,7 @@ class TestMyLocation(unittest.TestCase):
         # Call the function with invalid input and check that it raises a ValueError
         with self.assertRaises(ValueError):
             my_location.get_location('')
+
 
 if __name__ == '__main__':
     unittest.main()
