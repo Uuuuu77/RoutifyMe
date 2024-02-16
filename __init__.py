@@ -11,11 +11,13 @@ def create_app():
     from views.route_finder_view import route_finder_view
     from views.my_location_view import my_location_view
     from views.nearby_places_view import nearby_places_view
+    from views.user_view import user_view
 
     # Register the Blueprint with the app
     app.register_blueprint(route_finder_view)
     app.register_blueprint(my_location_view)
     app.register_blueprint(nearby_places_view)
+    app.register_blueprint(user_view)
 
     # Global error handler
     @app.errorhandler(500)
