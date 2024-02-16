@@ -41,7 +41,7 @@ def optimize_with_bing_maps(data):
     api_key = os.getenv('Bing_Maps_Key')
     origin = data['locations'][0]
     destination = data['locations'][-1]
-    waypoints = ';'.join(data['locations'][1:-1])
+    waypoints = ';'.join([f"{loc['lat']},{loc['lng']}" for loc in data['locations'][1:-1]])
     optimize = 'time'  # to optimize waypoints
 
     # define the request url
