@@ -1,9 +1,29 @@
 #!/usr/bin/python3
 
 from flask import Flask, jsonify, request, abort
+from models.user import db, User
 from services import nearby_places, route_finder, my_location
 
 app = Flask(__name__)
+
+# Configure the database URI and initialize the database with your Flask app
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+db.init_app(app)
+
+@app.route('/users', methods=['POST'])
+def create_user():
+    data = request.get_json()
+    user = User(**data)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify(user.to_dict()), 201
+
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        abort(404, description="User not found")
+    return jsonify(user.to_dict())
 
 
 @app.route('/nearby-places', methods=['GET'])
@@ -48,4 +68,6 @@ def get_my_location_view():
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
