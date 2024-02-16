@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from flask import Blueprint, jsonify
-from services.my_location import get_my_location
+from services.my_location import get_location
 
 my_location_view = Blueprint('my_location_view', __name__)
 
