@@ -11,7 +11,8 @@ load_dotenv()
 def get_nearby_places(location, queries):
     if not isinstance(location, str) or not location:
         raise ValueError("location must be a non-empty string")
-    if not isinstance(queries, list) or not all(isinstance(query, str) for query in queries):
+    if not isinstance(queries, list) or not all(
+        isinstance(query, str) for query in queries):
         raise ValueError("queries must be a list of non-empty strings")
 
     api_url = "http://dev.virtualearth.net/REST/v1/LocalSearch"
