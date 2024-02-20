@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db.init_app(app)
 
+
 @app.route('/users', methods=['POST'])
 def create_user():
     data = request.get_json()
@@ -17,6 +18,7 @@ def create_user():
     db.session.add(user)
     db.session.commit()
     return jsonify(user.to_dict()), 201
+
 
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):

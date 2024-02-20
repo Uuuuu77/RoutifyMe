@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def get_nearby_places(location, queries):
     if not isinstance(location, str) or not location:
         raise ValueError("location must be a non-empty string")
@@ -31,4 +32,3 @@ def get_nearby_places(location, queries):
             raise Exception(f"Request to {api_url} failed: {str(e)}")
 
     return results
-     
