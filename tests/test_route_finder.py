@@ -5,6 +5,7 @@ from unittest.mock import patch, Mock
 from flask import Flask
 from services import route_finder
 
+
 class TestRouteFinder(unittest.TestCase):
     def setUp(self):
         self.app = Flask(__name__)
@@ -16,11 +17,14 @@ class TestRouteFinder(unittest.TestCase):
         # Mock the API response
         mock_response = Mock()
         mock_response.raise_for_status.return_value = None
-        mock_response.json.return_value = {'resourceSets': [{'resources': [{'routeLegs': [{'endLocation': 'Location A'}]}]}]}
+        route_data = {'resourceSets': [{'resources': [{'routeLegs': [
+            {'endLocation': 'Location A'}]}]}]}
+        mock_response.json.return_value = route_data
         mock_get.return_value = mock_response
 
         # Call the function with a valid request
-        response = self.client.post('/optimize', json={'locations': ['Location A', 'Location B']})
+        request_data = {'locations': ['Location A', 'Location B']}
+        response = self.client.post('/optimize', json=request_data)
 
         # Check that the function returned the correct data
         self.assertEqual(response.get_json(), ['Location A'])
@@ -29,17 +33,21 @@ class TestRouteFinder(unittest.TestCase):
     def test_optimize_route_failure(self, mock_get):
         # Mock the API response to raise an exception
         mock_response = Mock()
-        mock_response.raise_for_status.side_effect = route_finder.RequestException
+        mock_response.raise_for_status.side_effect = \
+            route_finder.RequestException
         mock_get.return_value = mock_response
 
-        # Call the function with a valid request and check that it raises an exception
-        response = self.client.post('/optimize', json={'locations': ['Location A', 'Location B']})
+        # Call the function with a valid request
+        request_data = {'locations': ['Location A', 'Location B']}
+        response = self.client.post('/optimize', json=request_data)
         self.assertEqual(response.status_code, 500)
 
     def test_optimize_route_invalid_input(self):
-        # Call the function with invalid input and check that it returns a 400 status code
-        response = self.client.post('/optimize', json={'locations': ['Location A']})
+        # Call the function with invalid input
+        request_data = {'locations': ['Location A']}
+        response = self.client.post('/optimize', json=request_data)
         self.assertEqual(response.status_code, 400)
+
 
 if __name__ == '__main__':
     unittest.main()
