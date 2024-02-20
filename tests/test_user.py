@@ -3,6 +3,7 @@
 import unittest
 from models import User, db
 
+
 class UserTest(unittest.TestCase):
     def test_create_user(self):
         user = User(email='test@example.com', password='password')
