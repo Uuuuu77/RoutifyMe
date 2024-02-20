@@ -5,6 +5,7 @@ from models.user import User
 
 user_view = Blueprint('user_view', __name__)
 
+
 @user_view.route('/register', methods=['POST'])
 def register():
     email = request.form['email']

@@ -13,7 +13,7 @@ def route_finder():
     end_location = data.get('end')
 
     if not start_location or not end_location:
-        return jsonify({"error": "Missing start or end location parameter"}), 400
+        return jsonify({"error": "Missing start & end location param"}), 400
 
     try:
         route = optimize_route(start_location, end_location)
