@@ -13,9 +13,9 @@ route_finder = Blueprint('route_finder', __name__)
 
 # Sample data (replace with actual data or database interactions)
 locations = [
-    {"id": 1, "name": "Location A", "lat": 37.7749, "lng": -122.4194},
-    {"id": 2, "name": "Location B", "lat": 37.7749, "lng": -122.4294},
-    {"id": 3, "name": "Location C", "lat": 37.7849, "lng": -122.4194},
+    {"id": 1, "name": "Nairobi", "lat": -1.280555, "lng": 36.808945},
+    {"id": 2, "name": "Nakuru", "lat": -0.3031, "lng": 36.0800},
+    {"id": 3, "name": "Mombasa", "lat": -4.0435, "lng": 39.6682},
 ]
 
 
