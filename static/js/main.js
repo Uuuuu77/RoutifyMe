@@ -1,28 +1,21 @@
 // static/js/main.js
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Code to run after the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.initializeMap = () => {
+        const map = new Microsoft.Maps.Map(document.getElementById('map'), {
+            credentials: 'YOUR_BING_MAPS_API_KEY', // Replace with your actual Bing Maps API key
+            center: new Microsoft.Maps.Location(37.7749, -122.4194), // Example: San Francisco
+            zoom: 10
+        });
 
-    // Your JavaScript logic here
-    // For example, interacting with the Google Maps API, handling form submissions, etc.
+        const optimizeButton = document.getElementById('optimizeButton');
+        optimizeButton.addEventListener('click', () => {
+            alert('Optimizing route...');
+            // Add your route optimization logic here
+        });
 
-    // Sample code to demonstrate a button click event
-    const optimizeButton = document.getElementById('optimizeButton');
-    optimizeButton.addEventListener('click', function() {
-        // Placeholder code for optimization (replace with actual logic)
-        alert('Optimizing route...');
-        // You can make an AJAX request to the server to trigger route optimization
-        // Example using fetch API:
-        // fetch('/optimize', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ locations: /* your data here */ })
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     // Handle the optimized route data
-        // });
-    });
+        document.getElementById('map').addEventListener('click', () => {
+            document.getElementById('overlay').style.display = 'flex';
+        });
+    };
 });

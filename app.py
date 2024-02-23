@@ -6,7 +6,7 @@ from services import nearby_places, route_finder, my_location
 
 app = Flask(__name__)
 
-# Configure the database URI and initialize the database with your Flask app
+# Configure the database URI and initialize the database with the Flask app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db.init_app(app)
 

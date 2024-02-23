@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Route Optimization App</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body>
@@ -15,16 +15,21 @@
         <h1>Route Optimization App</h1>
 
         <!-- Map container -->
-        <div class="map-container">
-            <div id="map"></div>
+        <div class="map-container" id="map"></div>
+
+        <!-- Half-page overlay for additional content -->
+        <div id="overlay" class="overlay" style="display: none;">
+            <!-- Content for searching locations, nearby places, or route finder goes here -->
+            <!-- Add your form or additional elements here -->
+            <button id="closeOverlayButton" class="button">Close Overlay</button>
         </div>
 
         <!-- Optimize button -->
         <button id="optimizeButton" class="button">Optimize Route</button>
     </div>
 
-    <!-- Include Google Maps API script -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap" async defer></script>
+    <!-- Include Bing Maps API script -->
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=YOUR_BING_MAPS_API_KEY&callback=initializeMap" async defer></script>
 
     <!-- Include main.js script -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>

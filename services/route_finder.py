@@ -11,7 +11,7 @@ load_dotenv()
 # Create a Blueprint for routes
 route_finder = Blueprint('route_finder', __name__)
 
-# Sample data (replace with actual data or database interactions)
+# Sample data
 locations = [
     {"id": 1, "name": "Nairobi", "lat": -1.280555, "lng": 36.808945},
     {"id": 2, "name": "Nakuru", "lat": -0.3031, "lng": 36.0800},
