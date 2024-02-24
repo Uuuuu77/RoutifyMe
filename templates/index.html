@@ -1,26 +1,53 @@
-<!-- templates/index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Route Optimization App</title>
+    <title>RoutifyMe</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body>
     <div class="container">
-        <h1>Route Optimization App</h1>
+        <h1>RoutifyMe</h1>
 
         <!-- Map container -->
         <div class="map-container" id="map"></div>
 
         <!-- Half-page overlay for additional content -->
         <div id="overlay" class="overlay" style="display: none;">
-            <!-- Content for searching locations, nearby places, or route finder goes here -->
-            <!-- Add your form or additional elements here -->
+            <!-- Content for searching locations, nearby places, or route finder -->
+            <!-- Location search form -->
+            <form id="locationSearchForm">
+                <label for="location"><i class="fas fa-search-location"></i> Search Location:</label><br>
+                <input type="text" id="location" name="location"><br>
+                <input type="submit" value="Search">
+            </form>
+
+            <!-- Nearby places form -->
+            <form id="nearbyPlacesForm">
+                <label for="nearby"><i class="fas fa-map-marker-alt"></i> Find Nearby Places:</label><br>
+                <input type="text" id="nearby" name="nearby"><br>
+                <input type="submit" value="Find">
+            </form>
+
+            <!-- Route finder form -->
+            <form id="routeFinderForm">
+                <label for="start"><i class="fas fa-route"></i> Find Route:</label><br>
+                <input type="text" id="start" name="start" placeholder="Start location"><br>
+                <input type="text" id="end" name="end" placeholder="End location"><br>
+                <input type="submit" value="Find Route">
+            </form>
+
+            <!-- Login form -->
+            <form id="loginForm">
+                <label for="email"><i class="fas fa-user"></i> Email:</label><br>
+                <input type="email" id="email" name="email" required><br>
+                <label for="password"><i class="fas fa-lock"></i> Password:</label><br>
+                <input type="password" id="password" name="password" required><br>
+                <input type="submit" value="Login">
+            </form>
             <button id="closeOverlayButton" class="button">Close Overlay</button>
         </div>
 
@@ -29,7 +56,7 @@
     </div>
 
     <!-- Include Bing Maps API script -->
-    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=YOUR_BING_MAPS_API_KEY&callback=initializeMap" async defer></script>
+    <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key={{ Bing_maps_key }}&callback=initializeMap" async defer></script>
 
     <!-- Include main.js script -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>

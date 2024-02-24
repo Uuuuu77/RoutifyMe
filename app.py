@@ -1,14 +1,18 @@
 #!/usr/bin/python3
 
+import os
 from flask import Flask, jsonify, request, abort
 from models.user import db, User
 from services import nearby_places, route_finder, my_location
+from __init__ import create_app
 
-app = Flask(__name__)
+app = create_app()
 
-# Configure the database URI and initialize the database with the Flask app
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-db.init_app(app)
+
+@app.route('/')
+def index():
+    bing_maps_key = os.getenv('Bing_Maps_Key')
+    return render_template('index.html', bing_maps_key=bing_maps_key)
 
 
 @app.route('/users', methods=['POST'])

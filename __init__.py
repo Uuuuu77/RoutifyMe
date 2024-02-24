@@ -1,11 +1,16 @@
 #!/usr/bin/python3
 
 from flask import Flask, jsonify
+from models.user import db
 
 
 def create_app():
     # Create a Flask application instance
     app = Flask(__name__)
+
+    # Configure the database URI and intialize the database with flask app
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+    db.init_app(app)
 
     # Import routes inside the function to avoid circular imports
     from views.route_finder_view import route_finder_view
