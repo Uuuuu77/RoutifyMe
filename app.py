@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import os
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, render_template
 from models.user import db, User
 from services import nearby_places, route_finder, my_location
 from __init__ import create_app
