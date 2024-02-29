@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from flask import Blueprint, request
-from models.user import User
+from models.user import User, db
 
 user_view = Blueprint('user_view', __name__)
 

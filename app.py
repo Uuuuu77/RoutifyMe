@@ -3,6 +3,7 @@
 import os
 from flask import Flask, jsonify, request, abort, render_template
 from models.user import db, User
+from models.location import Location
 from services import nearby_places, route_finder, my_location
 from __init__ import create_app
 
@@ -30,6 +31,23 @@ def get_user(user_id):
     if user is None:
         abort(404, description="User not found")
     return jsonify(user.to_dict())
+
+
+@app.route('/locations', methods=['POST'])
+def create_location():
+    data = request.get_json()
+    location = Location(**data)
+    db.session.add(location)
+    db.session.commit()
+    return jsonify(location.to_dict()), 201
+
+
+@app.route('/locations/<int:location_id>', methods=['GET'])
+def get_location(location_id):
+    location = Location.query.get(location_id)
+    if location is None:
+        abort(404, description="Location not found")
+    return jsonify(location.to_dict())
 
 
 @app.route('/nearby-places', methods=['GET'])
