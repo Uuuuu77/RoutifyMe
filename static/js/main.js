@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ locations: locations }) // Replace with your locations data
+                body: JSON.stringify({ locations: locations }) // Replace with my locations data
             })
             .then(response => response.json())
             .then(data => {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(data.error);
                 } else {
                     alert('Route optimized!');
-                    // Add your logic to update the map with the optimized route
+                    // Add logic to update the map with the optimized route
                     const routeCoordinates = data.map(location => new Microsoft.Maps.Location(location.lat, location.lng));
                     const routeLine = new Microsoft.Maps.Polyline(routeCoordinates, { strokeColor: 'blue', strokeThickness: 3 });
                     map.entities.clear();
