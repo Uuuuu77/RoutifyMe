@@ -44,15 +44,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Handle form submissions
-        ['locationSearchForm', 'nearbyPlacesForm', 'routeFinderForm', 'loginForm'].forEach(formId => {
+        ['locationSearchForm', 'nearbyPlacesForm', 'routeFinderForm', 'loginForm', 'createLocationForm', 'updateLocationForm'].forEach(formId => {
             document.getElementById(formId).addEventListener('submit', (event) => {
                 event.preventDefault();
 
                 const formData = new FormData(event.target);
                 const data = Object.fromEntries(formData);
 
-                fetch('/my-endpoint', { // Replace with your actual endpoint
-                    method: 'POST',
+                let endpoint = '/my-endpoint'; // Replace with your actual endpoint
+                let method = 'POST';
+
+                if (formId === 'updateLocationForm') {
+                    endpoint += `/${data.locationId}`;
+                    method = 'PUT';
+                }
+
+                fetch(endpoint, {
+                    method: method,
                     headers: {
                         'Content-Type': 'application/json'
                     },

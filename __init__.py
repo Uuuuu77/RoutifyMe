@@ -17,12 +17,14 @@ def create_app():
     from views.my_location_view import my_location_view
     from views.nearby_places_view import nearby_places_view
     from views.user_view import user_view
+    from views.location_view import location_view
 
     # Register the Blueprint with the app
     app.register_blueprint(route_finder_view)
     app.register_blueprint(my_location_view)
     app.register_blueprint(nearby_places_view)
     app.register_blueprint(user_view)
+    app.register_blueprint(location_view)
 
     # Global error handler
     @app.errorhandler(500)
@@ -36,6 +38,3 @@ def create_app():
 
 
 app = create_app()
-
-# You can include additional initialization code here if needed
-# For example, connecting to a database, setting configurations, etc.
