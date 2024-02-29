@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import unittest
-from models import User, db
+from models.user import User, db
 
 
 class UserTest(unittest.TestCase):

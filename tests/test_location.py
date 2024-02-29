@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import unittest
-from models import Location, db
+from models.location import Location, db
 
 class LocationTest(unittest.TestCase):
     def test_create_location(self):
