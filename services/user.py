@@ -3,6 +3,7 @@
 from models.user import User, db
 from sqlalchemy.exc import IntegrityError
 
+
 # Function to create a new user
 def create_user(email, password):
     new_user = User(email=email, password=password)
@@ -14,6 +15,7 @@ def create_user(email, password):
         db.session.rollback()
         return None
 
+
 # Function to get a user by its id
 def get_user_by_id(user_id):
     try:
@@ -22,6 +24,7 @@ def get_user_by_id(user_id):
         print(f"Error occurred: {e}")
         return None
 
+
 # Function to get a user by its email
 def get_user_by_email(email):
     try:
@@ -29,6 +32,7 @@ def get_user_by_email(email):
     except Exception as e:
         print(f"Error occurred: {e}")
         return None
+
 
 # Function to update a user's email and/or password
 def update_user(user_id, email=None, password=None):
@@ -45,6 +49,7 @@ def update_user(user_id, email=None, password=None):
     except IntegrityError:
         db.session.rollback()
         return None
+
 
 # Function to delete a user
 def delete_user(user_id):

@@ -5,6 +5,7 @@ from models.location import Location, db
 
 location_view = Blueprint('location_view', __name__)
 
+
 @location_view.route('/create', methods=['POST'])
 def create():
     name = request.form['name']

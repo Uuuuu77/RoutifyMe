@@ -10,7 +10,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 class TestMyLocation(unittest.TestCase):
-
     @patch('services.my_location.requests.get')
     def test_get_location_success(self, mock_get):
         # Mock the API response
