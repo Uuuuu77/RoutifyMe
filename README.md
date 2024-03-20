@@ -1,6 +1,6 @@
 # RoutifyMe
 
-RoutifyMe is a powerful route optimization web application that leverages Bing Maps and advanced algorithms to provide the most efficient path across multiple destinations. Whether you're planning a delivery route, a road trip, or a day of sales calls, RoutifyMe makes it easy to visit more places in less time.
+RoutifyMe is a powerful route optimization web application that leverages Bing Maps API and advanced algorithms to provide the most efficient path across multiple destinations. Whether you're planning a delivery route, a road trip, or a day of sales calls, RoutifyMe makes it easy to visit more places in less time.
 
 ## Key Features
 
@@ -23,8 +23,8 @@ To get RoutifyMe up and running on your local machine, follow these steps:
 1. Clone the repository: `git clone https://github.com/your-username/routifyme.git`
 2. Navigate to the project directory: `cd routifyme`
 3. Install dependencies: `pip install -r requirements.txt`
-4. Set up the virtual environment: `python -m venv .venv`
-5. Activate the virtual environment: `source venv/bin/activate` (for Unix) or `.\venv\Scripts\activate` (for Windows)
+4. Set up the virtual environment: `python -m venv venv`
+5. Activate the virtual environment: `source venv/bin/activate` (for Unix) or `\venv\Scripts\activate` (for Windows)
 6. Create a .env file based on the provided template in .env.example. Be sure to replace the placeholders with your actual values.
 7. Run the application: `python3 app.py`
 8. Open your web browser and visit `http://localhost:8000`.
