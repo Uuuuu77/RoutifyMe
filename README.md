@@ -24,10 +24,10 @@ To get RoutifyMe up and running on your local machine, follow these steps:
 2. Navigate to the project directory: `cd routifyme`
 3. Install dependencies: `pip install -r requirements.txt`
 4. Set up the virtual environment: `python -m venv .venv`
-5. Activate the virtual environment: `source .venv/bin/activate` (for Unix) or `.\.venv\Scripts\activate` (for Windows)
+5. Activate the virtual environment: `source venv/bin/activate` (for Unix) or `.\venv\Scripts\activate` (for Windows)
 6. Create a .env file based on the provided template in .env.example. Be sure to replace the placeholders with your actual values.
-7. Run the application: `python app.py`
-8. Open your web browser and visit `http://localhost:5000`.
+7. Run the application: `python3 app.py`
+8. Open your web browser and visit `http://localhost:8000`.
 
 ## Usage
 
