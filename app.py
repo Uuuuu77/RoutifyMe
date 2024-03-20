@@ -12,12 +12,14 @@ app = create_app()
 
 @app.route('/')
 def index():
+    """ Route for rendering the index.html template. """
     bing_maps_key = os.getenv('Bing_Maps_Key')
     return render_template('index.html', bing_maps_key=bing_maps_key)
 
 
 @app.route('/users', methods=['POST'])
 def create_user():
+    """ Route for creating a new user. """
     data = request.get_json()
     user = User(**data)
     db.session.add(user)
@@ -27,6 +29,7 @@ def create_user():
 
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
+    """ Route for retrieving a user by user ID. """
     user = User.query.get(user_id)
     if user is None:
         abort(404, description="User not found")
@@ -35,6 +38,7 @@ def get_user(user_id):
 
 @app.route('/locations', methods=['POST'])
 def create_location():
+    """ Route for creating a new location. """
     data = request.get_json()
     location = Location(**data)
     db.session.add(location)
@@ -44,6 +48,7 @@ def create_location():
 
 @app.route('/locations/<int:location_id>', methods=['GET'])
 def get_location(location_id):
+    """ Route for retrieving a location by location ID. """
     location = Location.query.get(location_id)
     if location is None:
         abort(404, description="Location not found")
@@ -52,6 +57,7 @@ def get_location(location_id):
 
 @app.route('/nearby-places', methods=['GET'])
 def get_nearby_places_view():
+    """ Route for retrieving nearby places based on a location. """
     location = request.args.get('location')  # Get location from request args
 
     if not location:
@@ -67,6 +73,7 @@ def get_nearby_places_view():
 
 @app.route('/route-finder', methods=['GET'])
 def find_route_view():
+    """ Route for finding a route between two locations. """
     start_location = request.args.get('start_location')  # Get start location
     end_location = request.args.get('end_location')  # Get end location
 
@@ -83,6 +90,7 @@ def find_route_view():
 
 @app.route('/my-location', methods=['GET'])
 def get_my_location_view():
+    """ Route for retrieving user's current location. """
     try:
         data = my_location.get_my_location()
     except Exception as e:
